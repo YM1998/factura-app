@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Registrar Categoria</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre*</mat-label>
+      <input matInput maxlength="200" [(ngModel)]="category.name" [formControl]="nameValidators">
+      <mat-error *ngIf="nameValidators.errors?.required">Ingrese el nombre</mat-error>
+    </mat-form-field>
+    <br>
+   
+    <mat-form-field appearance="fill">
+      <mat-label>Seleccionar Estado</mat-label>
+      <mat-select [(ngModel)]="category.idStatus" [formControl]="statusValidators">
+        <mat-option *ngFor="let state of status" [value]="state.id">
+          {{state.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="statusValidators.errors?.required">Seleccionar estado</mat-error>
+    </mat-form-field>
+    <br> <br>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary"  (click)="save()">Ok</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
+</mat-dialog-actions>

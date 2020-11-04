@@ -1,0 +1,21 @@
+<app-header></app-header>
+<br/><br/>
+<div class="container">
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+        <div class="col align-self-end">
+            <button mat-raised-button (click)="openDialog()">
+                <mat-icon>assignment</mat-icon>
+                Nueva Categoria
+            </button>
+          </div>
+
+        </div>
+    </div>
+    <div class="card-body">          
+        <h2 class="card-title">Lista de Categorias</h2>
+      <app-table-category></app-table-category>
+    </div>
+</div>
+</div>
