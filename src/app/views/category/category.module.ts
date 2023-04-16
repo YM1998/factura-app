@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CategoryRouting } from './category-routing.module';
 import { CommonModule } from "@angular/common";
-import { HeaderComponent } from '../../templates/header/header.component';
 import { CategoryComponent } from './main/category.component';
-import { TableCategoryComponent } from './table/table.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CategoryService } from '../../services/category.service';
 import { StatusService } from '../../services/status.service';
 import {MatTableModule} from '@angular/material/table';
@@ -17,19 +14,18 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { ExceptionHandlerService } from 'src/app/handlers/exception_handler.service';
+import { TemplateModule } from 'src/app/templates/template.module';
 
 @NgModule({
   declarations: [
-    HeaderComponent,
     CategoryComponent,
-    TableCategoryComponent,
     SaveDialogComponent  
   ],
   imports:[
     CategoryRouting,
     CommonModule,
     MatTableModule,
-    HttpClientModule,
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
@@ -38,8 +34,9 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TemplateModule
   ],
-  providers: [CategoryService,StatusService],
+  providers: [CategoryService,StatusService, ExceptionHandlerService],
 })
 export class CategoryModule { }

@@ -8,7 +8,12 @@ const routes: Routes = [
   { 
       path: 'category', 
       loadChildren: () => import('./views/category/category.module').then( m => m.CategoryModule)
-  }
+  },
+
+  { 
+    path: 'product', 
+    loadChildren: () => import('./views/product/product.module').then( m => m.ProductModule)
+}
 ];
 
 @NgModule({

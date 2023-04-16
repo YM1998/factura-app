@@ -1,0 +1,96 @@
+Skip to content
+Product
+Solutions
+Open Source
+Pricing
+Search
+Sign in
+Sign up
+angular
+/
+angular-cli
+Public
+Code
+Issues
+212
+Pull requests
+6
+Actions
+Security
+Insights
+angular-cli/.gitignore
+@josephperrott
+josephperrott build: add ng-dev error logs to .gitignore
+Latest commit ea2e60a on Jun 1, 2021
+ History
+ 11 contributors
+@Brocco@hansl@josephperrott@clydin@rodyhaddad@JohannesHoppe@dgp1130@cironunes@beeman@alxhub@ahasall
+52 lines (45 sloc)  886 Bytes
+ 
+
+# Outputs
+bazel-*
+test-project-host-*
+dist/
+dist-schema/
+
+# IDEs
+jsconfig.json
+
+# Intellij IDEA/WebStorm
+# https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+.idea/inspectionProfiles/
+.idea/**/compiler.xml
+.idea/**/encodings.xml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Also ignore code styles because .editorconfig is used instead.
+.idea/codeStyles/
+
+# VSCode
+# https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+**/*.code-workspace
+
+# Typings file.
+typings/
+
+# Misc
+coverage/
+node_modules/
+tmp/
+npm-debug.log*
+yarn-error.log*
+.ng_pkg_build/
+.ng-dev.log
+.ng-dev.err*.log
+.ng-dev.user*
+.husky/_
+.bazelrc.user
+.eslintcache
+
+# Mac OSX Finder files.
+**/.DS_Store
+.DS_Store
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

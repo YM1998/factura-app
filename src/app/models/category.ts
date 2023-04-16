@@ -1,3 +1,5 @@
+import { CastExpr } from "@angular/compiler";
+
 export class Category{
    
     idCategory:number;
@@ -8,5 +10,18 @@ export class Category{
     modificationDate:string;
     creationUser:string;
     modificationUser:string;
+
+
+
+    constructor(idCategory?:number, name?:string, idStatus?:number) {
+        this.idCategory=idCategory;
+        this.name=name;
+        this.idStatus=idStatus;
+      }
+
+
+    public getCopyObject(): Category {        
+       return new Category(this.idCategory,this.name, this.idStatus);
+    }
 
 }
