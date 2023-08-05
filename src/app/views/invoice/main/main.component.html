@@ -1,1 +1,242 @@
-<p>main works!</p>
+<app-header></app-header>
+<br/><br/>
+
+<div class="container">
+
+   
+    <div class="row">
+
+         <!--cliente -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style=" height:50px; text-align:center;">
+                  <h3>Cliente</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <mat-form-field appearance="fill" style="width: 100%;" >
+                                <mat-label>Nit*</mat-label>
+                                <input [(ngModel)]="client.nit"  matInput readonly>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-1">
+                            <button mat-raised-button color="primary">
+                                <mat-icon>search</mat-icon>                           
+                            </button>
+                          </div>
+                          
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <mat-form-field appearance="fill" style="width: 100%;" [(ngModel)]="client.name" >
+                                    <mat-label>Nombre*</mat-label>
+                                    <input  [(ngModel)]="client.name" matInput readonly>
+                                  </mat-form-field>
+                              </div>                            
+                            </div>
+                </div>
+            </div> 
+
+        </div>
+
+        <!--datos factura -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style=" height:50px; text-align:center;">
+                    <h3>Factura</h3>
+                  </div>
+                <div class="card-body">
+                    <div class="row">
+                          <div class="col-md-11">
+                            <mat-form-field appearance="fill" style="width: 100%;" >
+                                <mat-label>Sucursal</mat-label>
+                                <input  [(ngModel)]="sellingPoint.name"  matInput readonly="">
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-11">
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Seleccionar forma de pago</mat-label>
+                                <mat-select [(ngModel)]="paymentTypeId" [formControl]="paymentTypeValidators" >
+                                  <mat-option *ngFor="let paymentType of paymentTypeList" [value]="paymentType.id">
+                                    {{paymentType.name}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="paymentTypeValidators.errors?.required">Seleccionar forma de pago</mat-error>
+                              </mat-form-field>
+
+                          </div>
+                          
+                        </div>
+
+                </div>
+            </div> 
+
+        </div>
+    </div>
+
+    <br/><br/>
+        <!--Tabla de factura-->
+        <div class="row">
+            <div class="col-md-12">
+            <div class="card" style="width: 100%;">
+                <div class="card-header">
+                    <table>
+                        <tr>
+                            <td style="width: 300px;padding-right: 10px;">
+                    <mat-form-field appearance="fill" style="width: 100%;" >
+                        <mat-label>Codigo Producto</mat-label>
+                        <input matInput [formControl]="productCodeValidator" [(ngModel)]="productCode"  (keyup.enter)="addProduct()" id="codeproduct">
+                        <mat-error *ngIf="productCodeValidator.errors?.required">Ingrese el codigo</mat-error>
+                        </mat-form-field>
+                    </td>
+                    <td style="width:50px;" >
+                        <button mat-raised-button color="accent" (click)="addProduct()">
+                            <mat-icon>add_circle_outline</mat-icon> 
+                            Agregar                         
+                        </button>
+                    </td><td style="padding-left: 10px;">
+                        <button mat-raised-button color="primary" (click)="cleanData()" >
+                            <mat-icon>restore_page</mat-icon>
+                            Limpiar                           
+                        </button>
+                    </td>
+                    <td style="width: 100%;">
+                        <button mat-raised-button  style="float: right;" (click)="confirmInvoice()" >
+                            <mat-icon>payment</mat-icon> 
+                            Facturar                         
+                        </button>
+
+                    </td>
+                    </tr>
+                    </table>
+                      
+                </div>
+                <div class="card-body">
+                    <table mat-table [dataSource]="invoiceCarts" class="mat-elevation-z8">
+
+
+                        <ng-container matColumnDef="Codigo">
+                            <mat-header-cell *matHeaderCellDef> Codigo </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.productCode}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Nombre">
+                            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.nameProduct}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Cantidad">
+                            <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <mat-form-field appearance="fill" style="width: 80px;">
+                                    <input matInput maxlength="10" [(ngModel)]="element.amount"  (keypress)="numberOnly($event, element)" (change)="element.total = element.price * element.amount; calculateTotal()" >                               
+                                </mat-form-field>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Precio">
+                            <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <mat-form-field appearance="fill" style="width: 100px;">
+                                    <input matInput maxlength="20" [(ngModel)]="element.price"    (keypress)="numberOnly($event)" (change)="element.total = element.price * element.amount; calculateTotal()" >                               
+                                </mat-form-field>
+
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Total">
+                            <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> ${{element.total  |  number}} </mat-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="Acciones">
+                            <th mat-header-cell *matHeaderCellDef  style="width:80px"></th>
+                            <td mat-cell *matCellDef="let element" > 
+                                  <button mat-mini-fab color="warn" aria-label="Eliminar" (click)="deleteItem(element)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                  </button> 
+                            </td>
+                          </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </table>
+                      
+                      
+                </div>
+
+                <div class="card-footer text-muted">
+                    <p class="fs-1" style = "float: right;color: black;font-weight: bold;">Total ${{total  |  number}}</p>                
+                  </div>
+            </div> 
+        </div>
+    
+
+   </div>
+
+</div>
+
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="exampleModalLabel">Terminar Compra</h2>
+        
+        </div>
+        <div class="modal-body">
+            <mat-form-field appearance="fill" style="width: 100%;" >
+                <mat-label>Nit cliente</mat-label>
+                <input [(ngModel)]="client.nit"  matInput readonly>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="width: 100%;" [(ngModel)]="client.name" >
+                <mat-label>Nombre*</mat-label>
+                <input  [(ngModel)]="client.name" matInput readonly>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="width: 100%;" >
+                <mat-label>Sucursal</mat-label>
+                <input  [(ngModel)]="sellingPoint.name"  matInput readonly="">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="width: 100%;" >
+                <mat-label>Forma de pago</mat-label>
+                <input  [(ngModel)]="paymentTypeName"  matInput readonly="">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="width: 100%;" >
+                <mat-label>$$Total</mat-label>
+                <input  value="{{total | number}}"  matInput readonly="">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>$$Paga con</mat-label>
+                <input matInput maxlength="20" [(ngModel)]="clientePayment"    (keypress)="numberOnly($event)" (change)="changeClient = clientePayment - total;" >                               
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>$$Cambio</mat-label>
+                <input matInput maxlength="20"  value="{{changeClient | number}}" matInput readonly="" >                               
+            </mat-form-field>
+
+        </div>
+        <div class="modal-footer">
+            
+            <button mat-raised-button  style="float: right;margin-right: 10px;" (click)="saveInvoice()" >
+                <mat-icon>payment</mat-icon> 
+                Facturar                         
+            </button>
+
+            <button mat-raised-button color="warn" (click)="displayStyle='none';" >
+                <mat-icon>close</mat-icon>
+                Salir                           
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
