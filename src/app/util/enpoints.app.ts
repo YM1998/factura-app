@@ -23,3 +23,4 @@ export const SELLING_POINT_FIND_ID:string = FACTURA_API+'selling/point/find/{id}
 export const PAYMENT_TYPE_GET_ALL:string = FACTURA_API+'payment-type/getAll';
 
 export const INVOICE_SAVE:string = FACTURA_API+'invoice/save'
+export const INVOICE_GET_PDF:string = FACTURA_API+'invoice/generate-pdf/{id}'

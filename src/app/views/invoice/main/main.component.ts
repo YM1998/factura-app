@@ -13,6 +13,10 @@ import { MessageService } from 'src/app/handlers/message.service';
 import { Product } from 'src/app/models/product';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import swal from 'sweetalert2';
+import { InvoiceRequest } from 'src/app/models/invoice_request/invoice_request';
+import { Invoiceservice } from 'src/app/services/invoice.service';
+import { ExceptionHandlerService } from 'src/app/handlers/exception_handler.service';
+import { InvoicePdf } from 'src/app/models/invoice_response/invoice_pdf';
 
 @Component({
   selector: 'app-main',
@@ -50,7 +54,9 @@ export class MainComponent {
               private sellingPointService:SellingPointService,
               private paymentTypeService:PaymentTypeService,
               private productService:ProductService,
-              private messageService:MessageService) {}
+              private messageService:MessageService,
+              private invoiceService:Invoiceservice,
+              private exceptionHandler:ExceptionHandlerService) {}
 
 
   ngOnInit(): void {
@@ -144,10 +150,7 @@ public numberOnly(event): boolean {
   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
     return false;
   }
-
-  
   return true;
-
 }
 
 public calculateTotal():void{
@@ -175,9 +178,28 @@ public saveInvoice():void {
     return ;
   }
 
-  this.displayStyle = "block";
-  this.paymentTypeName = this.paymentTypeList.find(paymentType=>paymentType.id == this.paymentTypeId).name;
+  let invoice = new InvoiceRequest();
+  invoice.clientId = this.client.id;
+  invoice.paymentTypeId = this.paymentTypeId;
+  invoice.invoiceDetails = this.invoiceCarts
+                               .data
+                               .map((item)=>{
+                                return {price:item.price, amount:item.amount, productCode:item.productCode}
+                               });
+  this.invoiceService.saveInvoice(invoice).subscribe((response)=>{
+    
+   
+    this.displayStyle = "none";
+    this.cleanData();
+    this.invoiceService
+        .getInvoicePdf(response.numberInvoice)
+        .subscribe((pdfResponse) => this.generateInvoicePdf(pdfResponse))
+  },
+  (error)=>this.exceptionHandler.handlerError(error));
+ 
 }
+
+
 
 
 private validateInvoice():boolean {
@@ -216,6 +238,22 @@ private validateInvoice():boolean {
   
 
   return true;
+}
+
+
+private generateInvoicePdf(pdfResponse:InvoicePdf): void {
+
+    const byteCharacters = atob(pdfResponse.filePdf);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers); 
+    let file = new Blob([byteArray], { type: 'application/pdf' }); 
+    console.log(file);
+    var fileURL = URL.createObjectURL(file);
+    window.open(fileURL);
+
 }
 
 }
