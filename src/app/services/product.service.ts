@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from  'rxjs/operators'
-import { PRODUCT_DELETE, PRODUCT_FIND_BY_CODE, PRODUCT_GET_ALL, PRODUCT_SAVE, PRODUCT_UPDATE, PRODUCT_UPDATE_STATUS } from '../util/enpoints.app';
+import {  PRODUCT_FIND_BY_CODE, PRODUCT_GET_ALL, PRODUCT_GET_ALL_BY_SELLING_POINT, PRODUCT_SAVE, PRODUCT_UPDATE, PRODUCT_UPDATE_STATUS } from '../util/enpoints.app';
 import { Product } from '../models/product';
 import { ProductUpdate } from '../models/product_update';
 
@@ -14,6 +14,11 @@ export class ProductService {
 
   public getAllProduct():Observable<Product[]> {
     return this.http.get<Product[]>(PRODUCT_GET_ALL)
+                    .pipe(catchError(e =>throwError(e)));
+  }
+
+  public getAllProductBySellingPoint(sellingPointId:number):Observable<Product[]> {
+    return this.http.get<Product[]>(PRODUCT_GET_ALL_BY_SELLING_POINT.replace('{sellingPointId}',sellingPointId+''))
                     .pipe(catchError(e =>throwError(e)));
   }
 

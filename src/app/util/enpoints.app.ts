@@ -8,6 +8,7 @@ export const CATEGORY_DELETE:string = FACTURA_API+'category/delete/{idCategory}'
 export const STATE_GET_ALL:string = FACTURA_API+'state/getAll';
 
 export const PRODUCT_GET_ALL:string = FACTURA_API+'product/getAll';
+export const PRODUCT_GET_ALL_BY_SELLING_POINT:string = FACTURA_API+'product/getAll/{sellingPointId}';
 export const PRODUCT_FIND_BY_CODE:string = FACTURA_API+'product/findByCode/{code}';
 export const PRODUCT_SAVE:string = FACTURA_API+'product/save';
 export const PRODUCT_UPDATE:string = FACTURA_API+'product/update';
@@ -24,3 +25,7 @@ export const PAYMENT_TYPE_GET_ALL:string = FACTURA_API+'payment-type/getAll';
 
 export const INVOICE_SAVE:string = FACTURA_API+'invoice/save'
 export const INVOICE_GET_PDF:string = FACTURA_API+'invoice/generate-pdf/{id}'
+
+
+export const MOVEMENT_STOCK_GET_TYPES:string = FACTURA_API+'movement-stock-type/getAll'
+export const MOVEMENT_STOCK_SAVE:string = FACTURA_API+'movement-stock/save'

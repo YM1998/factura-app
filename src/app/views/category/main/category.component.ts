@@ -7,7 +7,7 @@ import { SaveDialogComponent } from '../dialog/dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { ExceptionHandlerService } from 'src/app/handlers/exception_handler.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {  Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-category',

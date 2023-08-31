@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Registrar Movmiento</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div class="example-container">
+
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Seleccionar Movimiento*</mat-label>
+        <mat-select [(ngModel)]="movemnetStock.typeMovementStockId" [formControl]="movementTypeValidator">
+          <mat-option *ngFor="let movement of movementStockTypes" [value]="movement.id">
+            {{movement.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="movementTypeValidator.errors?.required">Seleccionar Tipo Movimiento</mat-error>
+      </mat-form-field>
+      <br> <br>
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Stock*</mat-label>
+        <input matInput maxlength="255" [(ngModel)]="movemnetStock.movementValue" [formControl]="movementValueValidator"  (keypress)="numberOnly($event)" >
+        <mat-error *ngIf="movementValueValidator.errors?.required">Ingrese el valor del stock a mover</mat-error>
+    </mat-form-field>
+    <br> <br>
+   
+    <mat-form-field class="example-full-width">
+        <mat-label>Motivo</mat-label>
+        <textarea matInput placeholder="Motivo del movimiento del stock" [(ngModel)]="movemnetStock.reason"></textarea>
+      </mat-form-field>
+    <br>
+   
+
+    
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
+</mat-dialog-actions>

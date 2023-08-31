@@ -18,6 +18,11 @@ const routes: Routes = [
 { 
   path: 'invoice', 
   loadChildren: () => import('./views/invoice/invoice.module').then( m => m.InvoiceModule)
+},
+
+{ 
+  path: 'stock', 
+  loadChildren: () => import('./views/stock/stock.module').then( m => m.StockModule)
 }
 ];
 
