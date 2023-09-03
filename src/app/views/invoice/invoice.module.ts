@@ -16,17 +16,24 @@ import { ClientService } from 'src/app/services/client.service';
 import { PaymentTypeService } from 'src/app/services/payment_type.service';
 import { SellingPointService } from 'src/app/services/selling_point.service';
 import { MessageService } from 'src/app/handlers/message.service';
+import { InvoiceReportComponent } from './invoice-report/invoice-report.component';
+import { Invoiceservice } from 'src/app/services/invoice.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    InvoiceReportComponent
   ],
   imports: [
     CommonModule,
     InvoiceRoutingModule,
     TemplateModule,
     MatTableModule,
+    MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
@@ -34,9 +41,11 @@ import { MessageService } from 'src/app/handlers/message.service';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 
-  providers: [ClientService,PaymentTypeService, SellingPointService, MessageService],
+  providers: [ClientService,PaymentTypeService, SellingPointService, MessageService, Invoiceservice],
 })
 export class InvoiceModule { }

@@ -25,6 +25,7 @@ export const PAYMENT_TYPE_GET_ALL:string = FACTURA_API+'payment-type/getAll';
 
 export const INVOICE_SAVE:string = FACTURA_API+'invoice/save'
 export const INVOICE_GET_PDF:string = FACTURA_API+'invoice/generate-pdf/{id}'
+export const INVOICE_GET_BY_DATE:string = FACTURA_API+'invoice/getByDate'
 
 
 export const MOVEMENT_STOCK_GET_TYPES:string = FACTURA_API+'movement-stock-type/getAll'
