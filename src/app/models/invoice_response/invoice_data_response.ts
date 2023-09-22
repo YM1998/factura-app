@@ -5,4 +5,5 @@ export class InvoiceDataResponse {
     total:number;
     subtotal:number;
     cost:number;
+    profits:number;
 }

@@ -21,9 +21,14 @@ export class InvoiceReportComponent {
   public dataSource : MatTableDataSource<Invoice> ; 
   public displayedColumns: string[] = ['Cliente', 'FormaPago', 'Iva', 'Subtotal', 'Total','Costos','Ganancias','Fecha','Accion'];
   public date:Date;
-  pipe = new DatePipe('en-US');
-  today = new Date();
+  private pipe = new DatePipe('en-US');
+  private today = new Date();
   invoiceByDateRequest:InvoiceByDateRequest;
+
+  public totalCost: number; 
+  public totalSales: number; 
+  public totalEarnings: number;
+
 
 
   constructor(private invoiceService:Invoiceservice){}
@@ -43,6 +48,9 @@ export class InvoiceReportComponent {
                           console.log(response);
                           this.dataSource =  new MatTableDataSource<Invoice>(response.invoice);
                           this.dataSource.paginator = this.paginator;
+                          this.totalCost = response.cost;
+                          this.totalSales = response.total;
+                          this.totalEarnings = response.profits;
                         });
   }
 

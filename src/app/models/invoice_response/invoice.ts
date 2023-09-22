@@ -7,6 +7,7 @@ export class Invoice{
     iva:number;
     subtotal:number;
     total:number;
+    profits:number;
     paymentTypeId:number;
     paymentTypeName:string;
     clientName:string;

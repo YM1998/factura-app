@@ -1,0 +1,49 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 80px;">
+  </nav>
+<br/><br/>
+<div class="container">
+<div class="row">
+    <div class="col-md4"></div>
+<div class=" col-md-6 ">
+<div class="card">
+<div class="card-header">
+  <h3>Iniciar Session</h3>
+</div>
+    <div class="card-body">  
+    <div class="example-container">
+
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Usuario*</mat-label>
+            <input matInput   [(ngModel)]="user" [formControl]="userValidator" >
+            <mat-error *ngIf="userValidator.errors?.required">Ingrese el usuario</mat-error>
+        </mat-form-field>
+ 
+            <br/>
+        <mat-form-field  appearance="fill" style="width: 100%;"  >
+            <mat-label>Contraseña*</mat-label>
+            <input matInput placeholder="Password" type="Password" [(ngModel)]="password" [formControl]="passwordValidator">
+            <mat-error *ngIf="userValidator.errors?.required">Ingrese la contraseña</mat-error>
+            </mat-form-field> <br/>
+
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Punto de venta*</mat-label>
+            <mat-select [(ngModel)]="sellingPointId" [formControl]="sellingPointIdValidator">
+                <mat-option *ngFor="let sellingPoint of sellingPointsList" [value]="sellingPoint.id">
+                {{sellingPoint.name}}
+                </mat-option>
+            </mat-select> 
+            <mat-error *ngIf="sellingPointIdValidator.errors?.required">Seleccionar punto de venta</mat-error>
+            </mat-form-field>
+    </div>
+</div>
+
+<div class="card-footer">
+    <button mat-raised-button color="primary" (click)="login()">
+        <mat-icon> person_pin</mat-icon>
+       Iniciar Session
+    </button>
+</div>
+
+</div></div>
+</div></div>

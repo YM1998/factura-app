@@ -1,5 +1,7 @@
 export const FACTURA_API:string ='http://127.0.0.1:9005/factura-api/';
 
+export const AUTH:string = FACTURA_API+'oauth/token';
+
 export const CATEGORY_GET_ALL:string = FACTURA_API+'category/getAll';
 export const CATEGORY_SAVE:string = FACTURA_API+'category/save';
 export const CATEGORY_UPDATE:string = FACTURA_API+'category/update';
@@ -20,6 +22,7 @@ export const ATTRIBUTE_GET_ALL:string = FACTURA_API+'attribute/getAll';
 export const CLIENT_FIND_ID:string = FACTURA_API+'client/find/{id}';
 
 export const SELLING_POINT_FIND_ID:string = FACTURA_API+'selling/point/find/{id}';
+export const SELLING_POINT_FIND_ALL:string = FACTURA_API+'selling/point/getAll';
 
 export const PAYMENT_TYPE_GET_ALL:string = FACTURA_API+'payment-type/getAll';
 
