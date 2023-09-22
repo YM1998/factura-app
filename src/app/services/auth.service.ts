@@ -56,9 +56,15 @@ export class AuthService {
                         .pipe(catchError(e=>throwError(e)));
     }
 
+    public logout(): void {
+      this._token = null;
+      this._userData = null;
+      sessionStorage.clear();
+    }
+
 
     public saveUserData(accessToken:string):void {
-        let payload = JSON.parse(atob(accessToken.split(".")[1]));
+        let payload = this.getPayLoad(accessToken);
         this._userData = new User();
         this._userData.id = payload.userId;
         this._userData.username = payload.user_name;
@@ -78,7 +84,7 @@ export class AuthService {
             return false;
         }
         
-        let payload = JSON.parse(atob(this.token.split(".")[1]));
+        let payload = this.getPayLoad(this.token);
         return payload!=null && payload.user_name && payload.user_name.length;
     }
 
@@ -86,4 +92,7 @@ export class AuthService {
       return this.userData.roles.includes(role);
     }
 
+    public getPayLoad(tokenValue:string) {
+      return JSON.parse(atob(tokenValue.split(".")[1]));
+    }
 }
