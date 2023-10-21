@@ -3,4 +3,5 @@ export class MovementStock{
     reason:string;
     typeMovementStockId:number;
     productId:number;
+    sellingPointId:number;
 }

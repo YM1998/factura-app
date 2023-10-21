@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ExceptionHandlerService } from 'src/app/handlers/exception_handler.service';
 import { MovementStock } from 'src/app/models/movement_stock';
 import { MovementStockType } from 'src/app/models/movement_stock_type';
+import { AuthService } from 'src/app/services/auth.service';
 import { MovementStockService } from 'src/app/services/movement_stock.service';
 import swal from'sweetalert2';
 
@@ -25,7 +26,8 @@ export class DialogComponent {
   constructor(private movementStockService:MovementStockService,
              public dialogRef: MatDialogRef<DialogComponent>,
              @Inject(MAT_DIALOG_DATA) public dataDialog: MovementStock,
-             private exceptionHandler:ExceptionHandlerService){}
+             private exceptionHandler:ExceptionHandlerService,
+             private authService:AuthService){}
 
   ngOnInit(): void {
     this.movemnetStock = this.dataDialog;
@@ -61,6 +63,7 @@ export class DialogComponent {
     if(this.formIsInvalid()) { return; }
     console.log("Paso validacion")
 
+    this.movemnetStock.sellingPointId = this.authService.userData.sellingPointId;
     this.movementStockService.saveMovement(this.movemnetStock)
                              .subscribe(() =>  
                                         {

@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MovementStock } from 'src/app/models/movement_stock';
 import { DialogComponent } from '../dialog/dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -21,6 +22,7 @@ export class MainComponent {
   public displayedColumns: string[] = ['Codigo', 'Nombre', 'Stock', 'Estado','Accion'];
 
   constructor(private productService:ProductService,
+              private authService:AuthService,
               public dialog: MatDialog) { }
 
   
@@ -31,7 +33,7 @@ export class MainComponent {
 
   private initData():void {
     this.productService
-        .getAllProductBySellingPoint(1)
+        .getAllProductBySellingPoint(this.authService.userData.sellingPointId)
         .subscribe(products => {
           this.dataSource = new MatTableDataSource<Product>(products)
           this.dataSource.paginator = this.paginator;

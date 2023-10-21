@@ -17,6 +17,9 @@ import { InvoiceRequest } from 'src/app/models/invoice_request/invoice_request';
 import { Invoiceservice } from 'src/app/services/invoice.service';
 import { ExceptionHandlerService } from 'src/app/handlers/exception_handler.service';
 import { InvoicePdf } from 'src/app/models/invoice_response/invoice_pdf';
+import { registerLocaleData } from '@angular/common';
+import es from '@angular/common/locales/es';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -56,7 +59,8 @@ export class MainComponent {
               private productService:ProductService,
               private messageService:MessageService,
               private invoiceService:Invoiceservice,
-              private exceptionHandler:ExceptionHandlerService) {}
+              private exceptionHandler:ExceptionHandlerService,
+              private authService:AuthService) {}
 
 
   ngOnInit(): void {
@@ -70,6 +74,7 @@ export class MainComponent {
     }else{
       this.invoiceCarts = new MatTableDataSource<InvoiceCarts>();
     }
+    registerLocaleData( es );
   }
 
 
@@ -181,6 +186,8 @@ public saveInvoice():void {
   let invoice = new InvoiceRequest();
   invoice.clientId = this.client.id;
   invoice.paymentTypeId = this.paymentTypeId;
+  invoice.sellerId = this.authService.userData.id;
+  invoice.sellingPointId = this.authService.userData.sellingPointId;
   invoice.invoiceDetails = this.invoiceCarts
                                .data
                                .map((item)=>{

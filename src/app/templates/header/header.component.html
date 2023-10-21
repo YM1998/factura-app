@@ -7,20 +7,20 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" >
+      <li class="nav-item"  *ngIf="hasRole('ROLE_ADMIN')">
         <a class="nav-link" href='/category'>Categorias</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" href='/product'>Productos</a>
+        <a class="nav-link" href='/product' *ngIf="hasRole('ROLE_ADMIN')">Productos</a>
       </li>
       <li class="nav-item" >
         <a class="nav-link" href='/invoice'>Facturar</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" href='/invoice/report'>Reporte Ventas</a>
+        <a class="nav-link" href='/invoice/report' *ngIf="hasRole('ROLE_ADMIN')">Reporte Ventas</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" href='/stock'>Manejo Inventario</a>
+        <a class="nav-link" href='/stock' *ngIf="hasRole('ROLE_ADMIN')">Manejo Inventario</a>
       </li>
       
     </ul>
@@ -30,21 +30,19 @@
         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{authService.userData.username}}
         </button>
+       
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Sucursal: {{authService.userData.sellingPointName}}</a>
-          <button class="dropdown-item" type="submit">Cerrar Session</button>
+          <a class="dropdown-item" href="#"><span class="badge bg-warning"  style="font-size: 14px; float: left;">{{authService.userData.sellingPointName}} </span></a>
+          
+          <br/>
+          <li><hr class="dropdown-divider"></li>          
+
+          <button class="dropdown-item" type="submit" (click)="logout()">Cerrar Session</button>
+         
         </div>
       </div>
-
-      <li class="dropdown" >
-        <a class="btn btn-outline-primary  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-          YM1998
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Sucursal: Almacen1</a>
-          <button class="dropdown-item" type="submit">Cerrar Session</button>
-        </div>
-      </li>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </ul>
   </div>
 </nav>

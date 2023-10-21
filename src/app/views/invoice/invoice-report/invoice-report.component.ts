@@ -9,6 +9,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { InvoicePdf } from 'src/app/models/invoice_response/invoice_pdf';
+import { registerLocaleData } from '@angular/common';
+import es from '@angular/common/locales/es';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-invoice-report',
@@ -31,14 +34,16 @@ export class InvoiceReportComponent {
 
 
 
-  constructor(private invoiceService:Invoiceservice){}
+  constructor(private invoiceService:Invoiceservice,
+              private authService:AuthService){}
 
 
   ngOnInit(): void {
     this.date = new Date();
     this.invoiceByDateRequest = new InvoiceByDateRequest();
-    this.invoiceByDateRequest.sellingPointId = 1;
+    this.invoiceByDateRequest.sellingPointId = this.authService.userData.sellingPointId;
     this.findInvoice();
+    registerLocaleData( es );
   }
 
   public findInvoice():void {

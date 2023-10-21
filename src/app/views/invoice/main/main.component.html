@@ -148,7 +148,7 @@
 
                         <ng-container matColumnDef="Total">
                             <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> ${{element.total  |  number}} </mat-cell>
+                            <mat-cell *matCellDef="let element"> ${{element.total   | number:'':'es'  }} </mat-cell>
                         </ng-container>
 
 
@@ -169,7 +169,7 @@
                 </div>
 
                 <div class="card-footer text-muted">
-                    <p class="fs-1" style = "float: right;color: black;font-weight: bold;">Total ${{total  |  number}}</p>                
+                    <p class="fs-1" style = "float: right;color: black;font-weight: bold;">Total ${{total  | number:'':'es' }}</p>                
                   </div>
             </div> 
         </div>
@@ -221,7 +221,7 @@
 
             <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>$$Cambio</mat-label>
-                <input matInput maxlength="20"  value="{{changeClient | number}}" matInput readonly="" >                               
+                <input matInput maxlength="20"  value="{{changeClient  | number:'':'es'  }}" matInput readonly="" >                               
             </mat-form-field>
 
         </div>
