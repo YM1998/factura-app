@@ -66,7 +66,7 @@ export class MainComponent {
   ngOnInit(): void {
     document.getElementById("codeproduct").focus();
     this.clientService.findByClientId(this.ID_CLIENT_GENERAL).subscribe(result => this.client = result);
-    this.sellingPointService.findById(1).subscribe(result => this.sellingPoint = result);
+    this.sellingPointService.findById(this.authService.userData.sellingPointId).subscribe(result => this.sellingPoint = result);
     this.paymentTypeService.getPaymentsTypeAll().subscribe(result => this.paymentTypeList = result)
     if(sessionStorage.getItem(this.INVOICES_SESSION_STORAGE)!=null) {
        this.invoiceCarts = new MatTableDataSource<InvoiceCarts>(JSON.parse(sessionStorage.getItem(this.INVOICES_SESSION_STORAGE)));

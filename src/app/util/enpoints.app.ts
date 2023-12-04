@@ -1,4 +1,7 @@
-export const FACTURA_API:string ='http://127.0.0.1:9005/factura-api/';
+//export const FACTURA_API:string ='http://127.0.0.1:9005/factura-api/';
+//export const FACTURA_API:string ='http://127.0.0.1:8086/facturacion-api-1.0-local-SNAPSHOT/';
+export const FACTURA_API:string = 'https://storenickystyle.com//factura-api/'
+
 
 export const AUTH:string = FACTURA_API+'oauth/token';
 
